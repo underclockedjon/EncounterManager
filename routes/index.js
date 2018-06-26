@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const monsterController = require('../controllers/monstersController');
+const { catchErrors } = require('../handlers/errorHandlers');
 
 // Do work here
 router.get('/', (req, res) => {
@@ -8,5 +9,5 @@ router.get('/', (req, res) => {
 });
 
 router.get('/monsters', monsterController.getRandomMonster);
-router.post('/monsters', monsterController.createMonster);
+router.post('/monsters', catchErrors( monsterController.createMonster ));
 module.exports = router;
