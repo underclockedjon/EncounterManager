@@ -1,1 +1,3 @@
 # EncounterManager
+
+npm run watch
