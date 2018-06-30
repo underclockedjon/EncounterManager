@@ -26,12 +26,12 @@ exports.catchErrors = (fn) => {
     Detect if there are mongodb validation errors that we can nicely show via flash messages
   */
   
-  exports.flashValidationErrors = (err, req, res, next) => {
+  exports.validationErrors = (err, req, res, next) => {
     if (!err.errors) return next(err);
     // validation errors look like
-    const errorKeys = Object.keys(err.errors);
-    errorKeys.forEach(key => req.flash('error', err.errors[key].message));
-    res.redirect('back');
+    //const errorKeys = Object.keys(err.errors);
+    //errorKeys.forEach(key => req.flash('error', err.errors[key].message));
+    res.status(422).json(err.errors);
   };
   
   
@@ -63,8 +63,5 @@ exports.catchErrors = (fn) => {
   */
   exports.productionErrors = (err, req, res, next) => {
     res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: {}
-    });
+    res.json(err);
   };
